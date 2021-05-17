@@ -1,0 +1,321 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.y3033906.canvas</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.graphics.Bitmap</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.graphics.Canvas</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.graphics.Color</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">com.google.android.material.floatingactionbutton.FloatingActionButton</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">androidx.appcompat.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">androidx.appcompat.widget.Toolbar</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.text.SpannableStringBuilder</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.util.TypedValue</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.Gravity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.view.Menu</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.MenuItem</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.WindowManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.PopupWindow</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.SeekBar</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.File</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.FileNotFoundException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.FileOutputStream</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Locale</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s0">implements </span><span class="s1">View.OnClickListener{</span>
+    <span class="s1">Bitmap bmp = </span><span class="s0">null;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_main)</span><span class="s0">;</span>
+
+        <span class="s1">Toolbar toolbar = findViewById(R.id.toolbar)</span><span class="s0">;</span>
+        <span class="s1">setSupportActionBar(toolbar)</span><span class="s0">;</span>
+
+        <span class="s2">/*-------------------------------ボタンの設定----------------------------------------------*/</span>
+        <span class="s2">//黒</span>
+        <span class="s1">Button black = findViewById(R.id.button_black)</span><span class="s0">;</span>
+        <span class="s1">black.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//橙</span>
+        <span class="s1">Button orange = findViewById(R.id.button_orange)</span><span class="s0">;</span>
+        <span class="s1">orange.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//赤</span>
+        <span class="s1">Button red = findViewById(R.id.button_red)</span><span class="s0">;</span>
+        <span class="s1">red.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//青</span>
+        <span class="s1">Button blue = findViewById(R.id.button_blue)</span><span class="s0">;</span>
+        <span class="s1">blue.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//水色</span>
+        <span class="s1">Button sky = findViewById(R.id.button_sky)</span><span class="s0">;</span>
+        <span class="s1">sky.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//緑</span>
+        <span class="s1">Button green = findViewById(R.id.button_green)</span><span class="s0">;</span>
+        <span class="s1">green.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//黄緑</span>
+        <span class="s1">Button w_green = findViewById(R.id.button_w_green)</span><span class="s0">;</span>
+        <span class="s1">w_green.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//黄</span>
+        <span class="s1">Button yellow = findViewById(R.id.button_yellow)</span><span class="s0">;</span>
+        <span class="s1">yellow.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//白（消しゴムとして使用)</span>
+        <span class="s1">Button erase = findViewById(R.id.button_erase)</span><span class="s0">;</span>
+        <span class="s1">erase.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">/*----------------------------------------------------------------------------------------*/</span>
+
+        <span class="s2">/*----------------------------FloatingActionButtonの設定-----------------------------------*/</span>
+        <span class="s1">FloatingActionButton fab = findViewById(R.id.fab)</span><span class="s0">;</span>
+        <span class="s1">fab.setOnClickListener(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">/*----------------------------------------------------------------------------------------*/</span>
+
+        <span class="s2">//TextViewの設定</span>
+        <span class="s1">TextView textView = findViewById(R.id.textWidth)</span><span class="s0">;</span>
+
+        <span class="s2">/*-----------------------------SeekBarの設定-----------------------------------------------*/</span>
+        <span class="s1">SeekBar seekBar = findViewById(R.id.seekBar)</span><span class="s0">;</span>
+        <span class="s2">//初期値</span>
+        <span class="s1">seekBar.setProgress(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//最大値</span>
+        <span class="s1">seekBar.setMax(</span><span class="s3">100</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s2">//onClickListenerと同様の記述seekBar.setOnSeekBarChangeListener</span>
+        <span class="s1">seekBar.setOnSeekBarChangeListener(</span>
+                <span class="s0">new </span><span class="s1">SeekBar.OnSeekBarChangeListener() {</span>
+                    <span class="s2">//つまみがドラッグされると呼ばれる</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onProgressChanged(SeekBar seekBar</span><span class="s0">, int </span><span class="s1">progress</span><span class="s0">, boolean </span><span class="s1">fromUser) {</span>
+                        <span class="s2">//0の時も描画されるため、感覚的に分かるように「0%」と表示しないための処理</span>
+                        <span class="s0">if </span><span class="s1">(progress == </span><span class="s3">0</span><span class="s1">)</span>
+                            <span class="s1">progress++</span><span class="s0">;</span>
+                        <span class="s1">String str = String.format(Locale.US</span><span class="s0">, </span><span class="s4">&quot;%d %%&quot;</span><span class="s0">, </span><span class="s1">progress)</span><span class="s0">;</span>
+                        <span class="s1">textView.setText(str)</span><span class="s0">;</span>
+                        <span class="s1">MyView.width = progress</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+
+                    <span class="s2">//つまみがタッチされた時に呼ばれる</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onStartTrackingTouch(SeekBar seekBar) { </span><span class="s2">//特に処理は無し</span>
+                    <span class="s1">}</span>
+
+                    <span class="s2">//つまみがリリースされた時に呼ばれる</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onStopTrackingTouch(SeekBar seekBar) { </span><span class="s2">//特に処理は無し</span>
+                    <span class="s1">}</span>
+                <span class="s1">})</span><span class="s0">;</span>
+        <span class="s2">/*----------------------------------------------------------------------------------------*/</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onCreateOptionsMenu(Menu menu){</span>
+        <span class="s1">getMenuInflater().inflate(R.menu.menu_main</span><span class="s0">,</span><span class="s1">menu)</span><span class="s0">;</span>
+        <span class="s0">return super</span><span class="s1">.onCreateOptionsMenu(menu)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onClick(View view){</span>
+        <span class="s2">//ボタンによって処理を変更</span>
+        <span class="s0">switch</span><span class="s1">(view.getId()){</span>
+            <span class="s0">case </span><span class="s1">R.id.button_black: </span><span class="s2">//黒色をセット</span>
+                <span class="s1">MyView.setPen(Color.BLACK)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_orange: </span><span class="s2">//橙色をセット</span>
+                <span class="s1">MyView.setPenRGB(</span><span class="s3">244</span><span class="s0">,</span><span class="s3">67</span><span class="s0">,</span><span class="s3">54</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_red:</span><span class="s2">//赤色をセット</span>
+                <span class="s1">MyView.setPen(Color.RED)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_blue:</span><span class="s2">//青色をセット</span>
+                <span class="s1">MyView.setPen(Color.BLUE)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_sky:</span><span class="s2">//水色をセット</span>
+                <span class="s1">MyView.setPen(Color.CYAN)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_green:</span><span class="s2">//緑色をセット</span>
+                <span class="s1">MyView.setPenRGB(</span><span class="s3">75</span><span class="s0">,</span><span class="s3">175</span><span class="s0">,</span><span class="s3">80</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_w_green:</span><span class="s2">//黄緑色をセット</span>
+                <span class="s1">MyView.setPenRGB(</span><span class="s3">139</span><span class="s0">,</span><span class="s3">195</span><span class="s0">,</span><span class="s3">74</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_yellow:</span><span class="s2">//黄色をセット</span>
+                <span class="s1">MyView.setPen(Color.YELLOW)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.button_erase:</span><span class="s2">//白色(消しゴム)をセット</span>
+                <span class="s1">MyView.setPen(Color.WHITE)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s0">case </span><span class="s1">R.id.fab: </span><span class="s2">//書いた絵を全て消す</span>
+                <span class="s2">//Mainactivityを呼び出すことで疑似的に消去する処理</span>
+                <span class="s1">Intent intent = </span><span class="s0">new </span><span class="s1">Intent(</span><span class="s0">this,</span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">startActivity(intent)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/*-------------------------「menu」のボタンが押された時の処理-------------------------------------*/</span>
+    <span class="s1">@Override</span>
+    <span class="s0">public boolean </span><span class="s1">onOptionsItemSelected(MenuItem item){</span>
+        <span class="s2">//ボタンによって処理を変更</span>
+        <span class="s0">switch</span><span class="s1">(item.getItemId()){</span>
+
+            <span class="s2">//「save]が押された時</span>
+            <span class="s0">case </span><span class="s1">R.id.action_menu1:</span>
+                <span class="s1">PopupWindow mPopupWindow = </span><span class="s0">new </span><span class="s1">PopupWindow(MainActivity.</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s2">/*---------------------------レイアウト設定-----------------------------------------*/</span>
+                <span class="s2">//PopupWindowに設定するViewをinflateしてsetContentView</span>
+                <span class="s1">View popupView = getLayoutInflater().inflate(R.layout.popup_layout_save</span><span class="s0">, null</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">popupView.findViewById(R.id.button_popup_save).setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+                    <span class="s1">@Override</span>
+                    <span class="s2">//「保存」ボタンが押された時の処理</span>
+                    <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+                        <span class="s0">if </span><span class="s1">(mPopupWindow.isShowing()) {</span>
+                            <span class="s2">//保存するファイルの名前を取得するtext</span>
+                            <span class="s1">EditText text = popupView.findViewById(R.id.editText_popup_save_name)</span><span class="s0">;</span>
+                            <span class="s1">SpannableStringBuilder ssb = (SpannableStringBuilder)text.getText()</span><span class="s0">;</span>
+                            <span class="s1">saveToFile(ssb)</span><span class="s0">;</span>
+                            <span class="s1">showToast(</span><span class="s4">&quot;保存しました&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                            <span class="s1">mPopupWindow.dismiss()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                    <span class="s1">}</span>
+                <span class="s1">})</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setContentView(popupView)</span><span class="s0">;</span>
+                <span class="s2">/*--------------------------------------------------------------------------------*/</span>
+
+                <span class="s2">// 背景設定</span>
+                <span class="s1">mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background))</span><span class="s0">;</span>
+
+                <span class="s2">// タップ時に他のViewでキャッチされないための設定(この設定をしないと、ポップアップウィンドウに貫通してタッチパネルが反応する)</span>
+                <span class="s1">mPopupWindow.setOutsideTouchable(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setFocusable(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s2">// 表示サイズの設定 今回は幅300dp</span>
+                <span class="s0">float </span><span class="s1">width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP</span><span class="s0">, </span><span class="s3">300</span><span class="s0">, </span><span class="s1">getResources().getDisplayMetrics())</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setWindowLayoutMode((</span><span class="s0">int</span><span class="s1">) width</span><span class="s0">, </span><span class="s1">WindowManager.LayoutParams.WRAP_CONTENT)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setWidth((</span><span class="s0">int</span><span class="s1">) width)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT)</span><span class="s0">;</span>
+
+                <span class="s2">// 画面中央に表示</span>
+                <span class="s1">mPopupWindow.showAtLocation(findViewById(R.id.button_black)</span><span class="s0">, </span><span class="s1">Gravity.CENTER</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+
+            <span class="s2">//「browse」が押された時</span>
+            <span class="s0">case </span><span class="s1">R.id.action_menu2:</span>
+                <span class="s2">//処理を記述</span>
+                <span class="s1">mPopupWindow = </span><span class="s0">new </span><span class="s1">PopupWindow(MainActivity.</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s2">// レイアウト設定</span>
+                <span class="s1">popupView = getLayoutInflater().inflate(R.layout.popup_layout_read</span><span class="s0">, null</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">popupView.findViewById(R.id.button_popup_save).setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+                    <span class="s1">@Override</span>
+                    <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+                        <span class="s0">if </span><span class="s1">(mPopupWindow.isShowing()) {</span>
+                            <span class="s2">//ここに処理を記述</span>
+                        <span class="s1">}</span>
+                    <span class="s1">}</span>
+                <span class="s1">})</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setContentView(popupView)</span><span class="s0">;</span>
+
+                <span class="s2">// 背景設定</span>
+                <span class="s1">mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background))</span><span class="s0">;</span>
+
+                <span class="s2">// タップ時に他のViewでキャッチされないための設定</span>
+                <span class="s1">mPopupWindow.setOutsideTouchable(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setFocusable(</span><span class="s0">true</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s2">// 表示サイズの設定 今回は幅300dp</span>
+                <span class="s1">width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP</span><span class="s0">, </span><span class="s3">300</span><span class="s0">, </span><span class="s1">getResources().getDisplayMetrics())</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setWindowLayoutMode((</span><span class="s0">int</span><span class="s1">) width</span><span class="s0">, </span><span class="s1">WindowManager.LayoutParams.WRAP_CONTENT)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setWidth((</span><span class="s0">int</span><span class="s1">) width)</span><span class="s0">;</span>
+                <span class="s1">mPopupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT)</span><span class="s0">;</span>
+
+                <span class="s2">// 画面中央に表示</span>
+                <span class="s1">mPopupWindow.showAtLocation(findViewById(R.id.button_black)</span><span class="s0">, </span><span class="s1">Gravity.CENTER</span><span class="s0">, </span><span class="s3">0</span><span class="s0">, </span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+        <span class="s1">}</span>
+        <span class="s0">return true;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">private void </span><span class="s1">saveToFile(SpannableStringBuilder text) {</span>
+        <span class="s2">/*//保存先の指定 
+        String status = Environment.getExternalStorageState(); 
+        showToast(String.valueOf(text)); 
+        File fout; 
+        if(!status.equals(Environment.MEDIA_MOUNTED)) { 
+            fout = Environment.getDataDirectory(); 
+        } 
+        //ファイルが無ければ新しくつくる 
+        else{ 
+            fout = new File(&quot;/DrawingApp&quot;); 
+            fout.mkdirs(); 
+        } 
+        String fname = fout.getAbsolutePath() + &quot;/&quot;; 
+        fname += text; 
+        //画像をファイルに読み込む 
+        try{ 
+            FileOutputStream out = new FileOutputStream(fname); 
+            bmp.compress(Bitmap.CompressFormat.PNG,100, out); 
+            out.flush(); 
+            out.close(); 
+        }catch (Exception e){}*/</span>
+
+        <span class="s2">//Context context = getApplicationContext();</span>
+        <span class="s1">String fileName = text + </span><span class="s4">&quot;.jpg&quot;</span><span class="s0">;</span>
+        <span class="s2">//保存用Bitmap準備</span>
+        <span class="s1">Bitmap image = Bitmap.createBitmap(</span><span class="s3">640</span><span class="s0">,</span><span class="s3">480</span><span class="s0">, </span><span class="s1">Bitmap.Config.ARGB_8888)</span><span class="s0">;</span>
+        <span class="s2">//新しいcanvasに保存用Bitmaoをセット</span>
+        <span class="s1">Canvas canvas = </span><span class="s0">new </span><span class="s1">Canvas(image)</span><span class="s0">;</span>
+        <span class="s2">//cancasに対して描画</span>
+        <span class="s0">try</span><span class="s1">{</span>
+            <span class="s2">//出力ファイルを準備</span>
+            <span class="s1">FileOutputStream fos = </span><span class="s0">new </span><span class="s1">FileOutputStream(</span><span class="s0">new </span><span class="s1">File(fileName))</span><span class="s0">;</span>
+            <span class="s2">//PNG形式で出力</span>
+            <span class="s1">image.compress(Bitmap.CompressFormat.PNG</span><span class="s0">,</span><span class="s3">100</span><span class="s0">,</span><span class="s1">fos)</span><span class="s0">;</span>
+            <span class="s1">fos.close()</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">catch</span><span class="s1">(FileNotFoundException e){</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">catch </span><span class="s1">(IOException e){</span>
+            <span class="s1">e.printStackTrace()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">readFile(SpannableStringBuilder ssb){</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">public void </span><span class="s1">showToast(String string){</span>
+        <span class="s1">Toast t = Toast.makeText(</span>
+                <span class="s0">this, </span><span class="s1">string</span><span class="s0">, </span><span class="s1">Toast.LENGTH_SHORT)</span><span class="s0">;</span>
+        <span class="s1">t.show()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+<span class="s1">}</span></pre>
+</body>
+</html>

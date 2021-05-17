@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.Canvas.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.Canvas.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Button
+        android:id="@+id/button_black"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#000000" />
+
+    <Button
+        android:id="@+id/button_orange"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#F44336" />
+
+    <Button
+        android:id="@+id/button_red"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#E91E1E" />
+
+    <Button
+        android:id="@+id/button_erase"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="325dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#F1EEEE" />
+
+    <Button
+        android:id="@+id/button_blue"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#3F51B5" />
+
+    <Button
+        android:id="@+id/button_sky"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="165dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#03A9F4" />
+
+    <Button
+        android:id="@+id/button_green"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="205dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#4CAF50" />
+
+    <Button
+        android:id="@+id/button_w_green"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="245dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#8BC34A" />
+
+    <Button
+        android:id="@+id/button_yellow"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="285dp"
+        android:layout_marginTop="580dp"
+        app:backgroundTint="#FFEB3B" />
+
+    <com.example.y3033906.canvas.MyView
+        android:id="@+id/myView"
+        android:layout_width="match_parent"
+        android:layout_height="512dp"
+        android:layout_marginTop="60dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="660dp"
+        android:background="#ccc"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="635dp"
+        android:layout_marginLeft="10dp"
+        android:text="Width：" />
+
+    <TextView
+        android:id="@+id/textWidth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="635dp"
+        android:layout_marginLeft="58dp"
+        android:text="1%"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="567dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
