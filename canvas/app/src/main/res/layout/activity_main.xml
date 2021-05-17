@@ -94,7 +94,7 @@
     <com.example.y3033906.canvas.MyView
         android:id="@+id/myView"
         android:layout_width="match_parent"
-        android:layout_height="512dp"
+        android:layout_height="514dp"
         android:layout_marginTop="60dp" />
 
     <SeekBar
@@ -134,6 +134,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="567dp" />
+        android:layout_height="513dp"
+        android:layout_marginTop="60dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

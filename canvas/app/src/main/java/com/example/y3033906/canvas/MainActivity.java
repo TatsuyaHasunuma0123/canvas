@@ -268,44 +268,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public Bitmap getViewCapture(View view) {
         view.setDrawingCacheEnabled(true);
-
         //Viewのキャッシュを取得
         Bitmap cache = view.getDrawingCache();
         Bitmap screenshot = Bitmap.createBitmap(cache);
         view.setDrawingCacheEnabled(false);
         return screenshot;
-
     }
 
     private void saveToFile(Bitmap bitmap, SpannableStringBuilder ssb) {
+        Context context = getApplicationContext();
+        String fileName = ssb + ".jpg";
+        File file = new File (context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), fileName);
         try {
-            File extStrageDir = Environment.getExternalStorageDirectory();
-            File file = new File(
-                    extStrageDir.getAbsolutePath()
-                            + "/" + Environment.DIRECTORY_DCIM,
-                    String.valueOf(ssb));
-            FileOutputStream outStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.close();
-        } catch (FileNotFoundException e) {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.close();
+        } catch (FileNotFoundException e){
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
-
 
     public void readFile(SpannableStringBuilder ssb){
-        try {
-            File file = new File("/mnd/sdcard/" + ssb);
-            FileInputStream inStream = new FileInputStream(file);
-        }catch (FileNotFoundException e){
+        Context context = getApplicationContext();
+        String fileName = ssb + ".jpg";
+        File file = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),fileName);
+        try{
+            FileInputStream inputStream = new FileInputStream(file);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ImageView iv = findViewById(R.id.imageView);
+            iv.setImageBitmap(bitmap);
+        } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-
-        ImageView iv = 
     }
-
 
     public void showToast(String string){
         Toast t = Toast.makeText(
