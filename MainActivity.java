@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -41,6 +42,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    public Integer first = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,15 +82,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         erase.setOnClickListener(this);
         /*----------------------------------------------------------------------------------------*/
 
-        /*----------------------------FloatingActionButtonの設定-----------------------------------*/
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(this);
-        /*----------------------------------------------------------------------------------------*/
+        //FloatingActionButtonの設定
+        FloatingActionButton fab_DeleteAll = findViewById(R.id.fab);
+        fab_DeleteAll.setOnClickListener(this);
 
         //TextViewの設定
-        TextView textView = findViewById(R.id.textWidth);
+        TextView textView_ShowPenWidth = findViewById(R.id.textWidth);
 
-        /*-----------------------------SeekBarの設定-----------------------------------------------*/
+        /*-----------------------------------SeekBarの設定-----------------------------------------*/
         SeekBar seekBar = findViewById(R.id.seekBar);
         //初期値
         seekBar.setProgress(0);
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (progress == 0)
                             progress++;
                         String str = String.format(Locale.US, "%d %%", progress);
-                        textView.setText(str);
+                        textView_ShowPenWidth.setText(str);
                         MyView.width = progress;
                     }
                     //つまみがタッチされた時に呼ばれる
@@ -119,13 +120,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*----------------------------------------------------------------------------------------*/
     }
 
+    //menuを表示するメソッド
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-
+    //ボタンが押された時に呼び出されるメソッド
     @Override
     public void onClick(View view) {
         //ボタンによって処理を変更
@@ -166,21 +168,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    //「menu」内のボタンが押された時に呼び出されるメソッド
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        PopupWindow mPopupWindow = new PopupWindow(MainActivity.this);
+        PopupWindow menu_PopupWindow = new PopupWindow(MainActivity.this);
         //ボタンによって処理を変更
         switch (item.getItemId()) {
             //「save」が押された時
-            case R.id.action_menu1:
+            case R.id.action_save:
                 //PopupWindowに設定するViewをinflateしてsetContentView
                 View popupView = getLayoutInflater().inflate(R.layout.popup_layout_save, null);
+                //PopupWindowのボタンを設定
                 popupView.findViewById(R.id.button_popup_save).setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     //「保存」ボタンが押された時の処理
                     public void onClick(View v) {
-                        if (mPopupWindow.isShowing()) {
+                        if (menu_PopupWindow.isShowing()) {
 
                             //保存するファイルの名前を取得するet_FileNameとssb_FileName
                             EditText et_FileName = popupView.findViewById(R.id.editText_popup_save_name);
@@ -193,33 +197,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Bitmap bitmap_Canvas = getViewCapture(findViewById(R.id.myView));
                             saveToFile(bitmap_Canvas,ssb_FileName);
                             showToast("保存しました");
-                            mPopupWindow.dismiss();
+                            menu_PopupWindow.dismiss();
                         }
                     }
 
                 });
-                mPopupWindow.setContentView(popupView);
-                screenPopupWindow(mPopupWindow);
+                menu_PopupWindow.setContentView(popupView);
+                screenPopupWindow(menu_PopupWindow);
                 break;
 
             //「browse」が押された時
-            case R.id.action_menu2:
-                // レイアウト設定
+            case R.id.action_read:
+                //PopupWindowに設定するViewをinflateしてsetContentView
                 popupView = getLayoutInflater().inflate(R.layout.popup_layout_read, null);
+                //PopupWindowのボタンを設定
                 popupView.findViewById(R.id.button_popup_read).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mPopupWindow.isShowing()) {
+                        if (menu_PopupWindow.isShowing()) {
                             EditText et_FileName = popupView.findViewById(R.id.editText_popup_read_name);
                             SpannableStringBuilder ssb_FileName = (SpannableStringBuilder) et_FileName.getText();
                             readToFile(ssb_FileName);
                             showToast("読み出しました");
-                            mPopupWindow.dismiss();
+                            menu_PopupWindow.dismiss();
                         }
                     }
                 });
-                mPopupWindow.setContentView(popupView);
-                screenPopupWindow(mPopupWindow);
+                menu_PopupWindow.setContentView(popupView);
+                screenPopupWindow(menu_PopupWindow);
                 break;
         }
         return true;
@@ -230,9 +235,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         view.setDrawingCacheEnabled(true);
         //Viewのキャッシュを取得
         Bitmap cache = view.getDrawingCache();
+        //キャッシュを画像として取得
         Bitmap screenshot_canvas = Bitmap.createBitmap(cache);
+
+        //imageViewを画像として取得
+        if(first != 0) {
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            screenshot_canvas = blendBitmap(screenshot_canvas,image);
+        }
         view.setDrawingCacheEnabled(false);
+
+        first++;
+
         return screenshot_canvas;
+    }
+
+    //currentBitmapとblendBitmapを合成
+    public Bitmap blendBitmap(Bitmap currentBitmap, Bitmap blendBitmap){
+        int width = currentBitmap.getWidth();
+        int height = currentBitmap.getHeight();
+        Bitmap new_bitmap = Bitmap.createBitmap(width,height,Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(new_bitmap);
+        canvas.drawBitmap(currentBitmap,0,0,null);
+        int disWidth = (width - blendBitmap.getWidth());
+        int disHeight = (height - blendBitmap.getHeight());
+        canvas.drawBitmap(blendBitmap,disWidth,disHeight,null);
+        return new_bitmap;
     }
 
     //描画した画像のデータbitmap_Canvasを、ssb_FileNameのファイルに保存する
@@ -254,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //「ssb_FileName」をもとに、ファイルを取得
     public void readToFile(SpannableStringBuilder ssb_FileName){
         Context context = getApplicationContext();
         //拡張子を設定
@@ -271,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //mPopupWindowを用いて画面にポップアップウィンドウを表示(xmlには記述せず、javaで記述する必要がある。)
     public void screenPopupWindow(PopupWindow mPopupWindow){
         // 背景設定
         mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_background));
