@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.y3033906.canvas">
+    package="com.example.y3033906.canvas_y3033906">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Canvas">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.y3033906.canvas_y3033906.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.Canvas.NoActionBar">
             <intent-filter>

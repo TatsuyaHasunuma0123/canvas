@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.y3033906.canvas.MainActivity">
+    tools:context="com.example.y3033906.canvas_y3033906.MainActivity">
     <item
         android:id="@+id/action_settings"
         android:icon= "@android:drawable/ic_menu_gallery"
@@ -10,10 +10,10 @@
         app:showAsAction="always" >
 
         <menu>
-            <item android:id="@+id/action_menu1"
+            <item android:id="@+id/action_save"
                 android:icon="@android:drawable/ic_menu_save"
                 android:title="save" />
-            <item android:id="@+id/action_menu2"
+            <item android:id="@+id/action_read"
                 android:icon="@android:drawable/ic_menu_set_as"
                 android:title="browse" />
 

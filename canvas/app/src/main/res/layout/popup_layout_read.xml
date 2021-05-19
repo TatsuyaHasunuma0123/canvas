@@ -7,7 +7,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_popup_save_name"
+        android:id="@+id/editText_popup_read_name"
         android:hint="読み出す名前を入力"
         android:inputType="text" />
 
@@ -19,7 +19,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/button_popup_save"
+        android:id="@+id/button_popup_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
